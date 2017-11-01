@@ -28,8 +28,8 @@ var_dump($file);
 #原因是什么
 
 只要使用Systemd这个进程作为启动进程的linux系统，其子进程都会有PrivateTmp这么一个属性，用于设置是否使用私有的tmp目录。那么只要设置使用这个属性的service，都会使用私有的tmp目录。比如：
-     - nginx会有一个systemd-private-xxx-nginx.service/tmp目录
-     - php-fpm会有一个systemd-private-xxx-php-fpm.service/tmp目录
+- nginx会有一个systemd-private-xxx-nginx.service/tmp目录
+- php-fpm会有一个systemd-private-xxx-php-fpm.service/tmp目录
 
 # PrivateTmp属性有什么好处
 
