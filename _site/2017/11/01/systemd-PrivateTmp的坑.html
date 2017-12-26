@@ -1,0 +1,206 @@
+ <!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta name="keywords" content="linux, PrivateTmp">
+  <meta name="description" content="systemd PrivateTmp的坑">
+  <meta name="author" content="张要辉">
+
+
+
+    <title>systemd PrivateTmp的坑</title>
+  <link rel="shortcut icon" href="/assets/img/icon2.ico">
+	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/font-awesome/4.2.0/css/font-awesome.min.css">
+	
+	<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+	<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+</head>
+<body>
+
+<nav class="navbar navbar-default">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+
+      <a class="navbar-brand" href="#"><img alt="Brand" width="30" height="30" src="/assets/img/icon1.png"></a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="/">Home <span class="sr-only">(current)</span></a></li>
+        <li><a href="https://github.com/zhangyaohui1986" target="_blank">Github</a></li>
+        <li><a href="#">About</a></li>
+      </ul>
+      
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container -->
+</nav>
+
+
+
+<style type="text/css">
+    .edwin-top-desc .jumbotron{
+        color: white;
+        background-image: -webkit-gradient(linear,left top,left bottom,from(#563d7c),to(#6f5499));
+        background-image: -webkit-linear-gradient(top,#563d7c 0,#6f5499 100%);
+        background-image: -o-linear-gradient(top,#563d7c 0,#6f5499 100%);
+        background-image: linear-gradient(to bottom,#563d7c 0,#6f5499 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#563d7c', endColorstr='#6F5499', GradientType=0);
+        background-repeat: repeat-x;
+        padding: 30px 0;
+    }
+    .edwin-top-desc .post-title{
+        margin-right: 20%;
+    }
+    .edwin-top-desc .post-desc{
+        font-size: 22px;
+        font-weight: 300;
+        margin-right: 20%;
+        color: #cdbfe3;
+        text-shadow: 0 1px 0 rgba(0,0,0,.1);
+    }
+    .edwin-top-desc .post-date{
+        color: #e3ddec;
+    }
+    .edwin-post-content{
+        min-height: 45%;
+        font-size: 125%;
+        line-height: 1.6;
+    }
+</style>
+
+<header class="edwin-top-desc">
+    <div class="jumbotron">
+        <div class="container">
+            <h2 class="post-title">systemd PrivateTmp的坑</h2>
+            <p class="post-desc">systemd PrivateTmp的坑</p>
+            
+            <span class="post-date">
+                <i class="fa fa-calendar" aria-hidden="true"></i>
+                <!-- <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> -->
+                <span>2017-11-01</span>
+            </span>
+            
+        </div>
+    </div>
+</header>
+
+<!-- content -->
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-10">
+            <div class="edwin-post-content">
+                <h1 id="sytemd-privatetmp的坑">Sytemd PrivateTmp的坑</h1>
+
+<p>开发调试的时候，遇到一个问题：file_put_contents()时，$file显示的是/tmp/xxx.txt,而这个文件在tmp下并不存在，然并卵，并不影响file_get_contents函数。而实际存在路径是/tmp/systemd-private-xxxxx-php-fpm.service/xxx。</p>
+
+<div class="language-php highlighter-rouge"><pre class="highlight"><code>$file = '/tmp/ppp.txt';
+
+#var_dump(file_get_contents($file));
+echo substr(sprintf('%o', fileperms('/tmp')), -4);
+die;
+$re = file_put_contents($file, uniqid(), FILE_APPEND);
+var_dump($re);
+var_dump(file_exists($file));
+var_dump(is_readable($file));
+var_dump(is_writeable($file));
+
+var_dump(file_get_contents($file));
+var_dump($file);
+</code></pre>
+</div>
+
+<h1 id="原因是什么">原因是什么</h1>
+
+<p>只要使用Systemd这个进程作为启动进程的linux系统，其子进程都会有PrivateTmp这么一个属性，用于设置是否使用私有的tmp目录。那么只要设置使用这个属性的service，都会使用私有的tmp目录。比如：</p>
+<ul>
+  <li>nginx会有一个systemd-private-xxx-nginx.service/tmp目录</li>
+  <li>php-fpm会有一个systemd-private-xxx-php-fpm.service/tmp目录</li>
+</ul>
+
+<h1 id="privatetmp属性有什么好处">PrivateTmp属性有什么好处</h1>
+
+<p>/tmp是所有用户和service共享的目录，都有读写权限，那就存在安全性问题，所以每个service将tmp目录隔离，能保证一定的安全性。
+每个service在启动的时候创建目录，停止的时候删除目录，好处是不需要单独写定期删除临时文件的脚本了</p>
+<h1 id="如何设置privatetmp属性">如何设置PrivateTmp属性</h1>
+
+<p>如果要禁用php-fpm的PrivateTmp，首先用systemctl找到service对应路径</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>systemctl status php-fpm
+</code></pre>
+</div>
+<p>编辑xxx.service文件，找到PrivateTmp，修改PrivateTmp=false 就OK啦</p>
+
+            </div>
+        </div>
+
+        <div class="col-md-2">
+            <!-- this is COL-MD-22222, for some contents -->
+        </div>
+    </div>
+
+</div>
+
+ <style type="text/css">
+	.footer {
+	   padding: 15px 0;
+       margin: 40px 0 0 0;
+       text-align: center;
+       border-top: 1px solid #eee
+	}
+	.footer .contact-list {
+		margin-bottom: 0;
+        padding-left: 0;
+	}
+	.footer .contact-list li {
+		display: inline-block;
+        line-height: 1;
+	}
+
+	.footer .contact-list li a {
+		color: #555;
+	}
+
+	.footer .contact-list>li+li:before {
+        padding: 0 10px;
+        color: #ccc;
+        content: "|";
+    }
+    .footer .contact-list li .fa {
+    	font-size: 16px;
+        margin-right: 3px;
+    }
+</style>
+<footer class="footer">
+      <div class="container">
+      	<ul class="contact-list">
+			<li>
+                <a href="mailto:511191969@qq.com" title="email">
+                    <i class="fa fa-envelope-o"></i> Email To Me
+                </a>
+            </li>
+            <li>
+                <a href="http://weibo.com/2081267207/profile?topnav=1&wvr=6&is_all=1" title="新浪微博" target="_blank">
+                    <i class="fa fa-weibo"></i> 新浪微博：@张要辉
+                </a>
+            </li>
+            <li>
+                <a href="https://github.com/zhangyaohui1986" title="GitHub" target="_blank">
+                    <i class="fa fa-github-square"></i> GitHub
+                </a>
+            </li>
+            <li>
+                <i class="fa fa-heart-o" ></i>Powered by Github
+            </li>      		
+      	</ul>
+      </div>
+</footer>
+
+</body>
+</html>
