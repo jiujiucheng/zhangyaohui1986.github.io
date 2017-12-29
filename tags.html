@@ -1,0 +1,36 @@
+--- 
+layout: tag
+---
+
+<script type="text/template" id="edwin-tag">
+    {% raw %}{{#posts}}{% endraw %}
+    <div class="post well">
+        <blockquote>
+              <h3><a href="{% raw %}{{ url }}{% endraw %}" class="post-title">{% raw %}{{ title }}{% endraw %}</a></h3>
+              <footer><i class="fa fa-calendar" aria-hidden="true"></i>{% raw %}{{ date }}{% endraw %}</footer>
+            </blockquote>
+
+            <div class="post-preview">
+                {% raw %}{{{ excerpt }}}{% endraw %}
+            </div>
+
+            <div class="post-tags">
+                {% raw %}{{#tags}}{% endraw %}
+                <span class="label label-default">{% raw %}{{.}}{% endraw %}</span>
+                {% raw %}{{/tags}}{% endraw %}
+            </div>
+    </div>
+    {% raw %}{{/posts}}{% endraw %}
+</script>
+
+<script type="text/template" id="edwin-no-tag">
+    <div class="post well">	
+        <blockquote>
+            <h3>该tag下没有对应的文章...</h3>
+            <footer>
+                <i class="glyphicon glyphicon-hand-right" aria-hidden="true"></i>
+                <kbd>{% raw %}{{ tag }}{% endraw %}</kbd>
+            </footer>
+        </blockquote>
+    </div>
+</script>
