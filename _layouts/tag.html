@@ -1,0 +1,43 @@
+{% include header.html %}
+<style type="text/css">
+.edwin-post-desc {
+    margin-top: -20px;
+}
+
+.edwin-post-desc .jumbotron {
+    position: relative;
+    padding: 80px 0;
+    color: #fff;
+    text-align: center;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, .4), 0 0 30px rgba(0, 0, 0, .075);
+    background: linear-gradient(45deg, #020031 0, #a22d6e 100%);
+}
+</style>
+<div class="edwin-post-desc">
+    <div class="jumbotron">
+        <div class="container">
+            <h1>我就是我是颜色不一样的烟火</h1>
+            <h3 class="glyphicon glyphicon-music">左手代码，右手诗书-曾梦想仗剑走天涯,看一看世间的繁华。</h2>
+	       
+	    </div>
+	</div>
+</div>
+
+<!-- content -->
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-10">
+            <div class="edwin-post-content">
+                {{ content }}
+            </div>
+        </div>
+
+        <div class="col-md-2">
+            <!-- this is COL-MD-22222, for some contents -->
+        </div>
+    </div>
+
+</div>
+
+{% include footer.html %}
