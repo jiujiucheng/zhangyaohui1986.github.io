@@ -53,5 +53,15 @@
       </div>
 </footer>
 
+<script type="text/javascript">
+  $(function(){
+        var pre_menu_hight = "{{ page.menu }}";
+
+        if(pre_menu_hight == "") pre_menu_hight="home";
+       
+        $('#edwin-navbar-collapse li[name="'+ pre_menu_hight +'"]').addClass('active');
+    });
+</script>
+
 </body>
 </html>
