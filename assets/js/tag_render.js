@@ -7,7 +7,9 @@ $(function() {
 	} else{
 
 		var tmpl = $("#edwin-no-tag").html();
-		tmpl = Mustache.render(tmpl,{'posts': tag});
+		if(tmpl){
+			tmpl = Mustache.render(tmpl,{'posts': tag});
+		}
 	}
 
 	console.log(tmpl);
