@@ -14,7 +14,7 @@ curl -sL https://deb.nodesource.com/setup_9.x | sudo -E bash -
 sudo apt-get install -y nodejs
 ```
 
-## 下载codePUsh 代码并安装
+## 下载codePush 代码并安装
 ```
 git clone https://github.com/lisong/code-push-server.git
 cd code-push-server && npm install -g
@@ -62,4 +62,4 @@ rnpm link react-native-code-push
 code-push deployment  ls -k 项目名
 ```
 
-codePush server安装，更多操作请百度。
+codePush server安装，更多操作请百度-_-。
