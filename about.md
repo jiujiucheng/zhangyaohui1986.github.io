@@ -25,6 +25,6 @@ menu: about
 - PHP是世界最好的语言
 - redis也是我的好基友
 - 专注于服务器开发
-- python,redis,node均有涉猎
+- python,spring,node均有涉猎
 - 前端凑合下也可以啦
 >
