@@ -3,7 +3,7 @@ layout: default
 title: ubuntu VirtualBox安装增强功能失败
 keywords: VirtualBox,增强功能
 description: 记录VirtualBox安装增强功能失败遇到的坑
-tags: ubuntu,VirtualBox
+tags: [ubuntu,VirtualBox]
 ---
 
 由于工作笔记本卡的巨慢无比，于是强制关机，重启后打开ubuntu 虚拟机，咦，不需要输入登陆密码直接进去了！进去以后蒙圈：
