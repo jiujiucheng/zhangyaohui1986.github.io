@@ -3,7 +3,7 @@ layout: default
 title: Zephir 构建PHP扩展
 keywords: Zephir,PHP,Phalcon
 description: Zephir 构建PHP扩展 
-tags: Zephir,php-extension
+tags: [Zephir,php-extension]
 ---
 
 用C/C++实现开发PHP扩展，替代原生PHP代码实现某些功能，效率提升明显，但是缺点也明显:入门成本高、开发效率低、一不小心就造成内存泄漏。现在我们有第二个选择，用Zephir构建！
