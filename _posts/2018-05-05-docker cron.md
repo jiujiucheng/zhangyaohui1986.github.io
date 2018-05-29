@@ -3,7 +3,7 @@ layout: default
 title: docker cron the input device is not a TTY
 keywords: dockre,cron
 description: dockcer 宿主机执行cron脚本 
-tags: dockcer,cron
+tags: [dockcer,cron]
 ---
 
 在cron中使用 docker exec -it djy-php7.0 /bin/sh /var/www/html/dangtong/check_dept.sh
