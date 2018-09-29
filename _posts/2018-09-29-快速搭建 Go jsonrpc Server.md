@@ -29,6 +29,11 @@ func (this *Edwin) Add(args map[string]float64,res *float64) error  {
     *res = args["num1"] + args["num2"]
     return  nil
 }
+func (this *Edwin) Multi(args map[string]interface{},res *float64) error {
+    *res = args["num1"].(float64) * args["num2"].(float64)
+    return nil
+}
+
 ```
  3. 注册rpc handler,开启server connection
 ```go
