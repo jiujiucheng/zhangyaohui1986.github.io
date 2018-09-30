@@ -99,8 +99,8 @@ class JsonRpc {
 
 $client = new JsonRPC("127.0.0.1", 11223);
 $client2 = new JsonRPC("127.0.0.1", 11223);
-$ret = $client->Call("Edwin2.Multi", array("num1" => 14, "num2" => 20));
-$ret2 = $client2->Call("Edwin2.Add", array("num1" => 14, "num2" => 20));
+$ret = $client->Call("Edwin.Multi", array("num1" => 14, "num2" => 20));
+$ret2 = $client2->Call("Edwin.Add", array("num1" => 14, "num2" => 20));
 var_export($ret);
 var_export($ret2);
 ```

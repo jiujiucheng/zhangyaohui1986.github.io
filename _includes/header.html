@@ -17,21 +17,24 @@
     <script type="text/javascript" src="https://cdn.bootcss.com/mustache.js/2.2.1/mustache.min.js"></script>
     <script type="text/javascript" src="/assets/js/tags.js"></script>
     <script type="text/javascript" src="/assets/js/tag_render.js"></script>
+    <script type="text/javascript">
+  ;(function(f,i){var b=i.documentElement;var e=f.navigator.appVersion;var g=e.match(/android/gi);var c=e.match(/iphone/gi);var k=f.devicePixelRatio;var j=1,d=1;if(c){if(k>=3){j=3}else{if(k>=2){j=2}else{j=1}}}else{j=1}d=1/j;var h=i.querySelector('meta[name="viewport"]');if(!h){h=i.createElement("meta");h.setAttribute("name","viewport");if(b.firstElementChild){b.firstElementChild.appendChild(h)}else{var a=i.createElement("div");a.appendChild(h);i.write(a.innerHTML)}}if(j){h.setAttribute("content","initial-scale="+d+", maximum-scale="+d+", minimum-scale="+d+", user-scalable=no,uc-fitscreen=yes");b.style.fontSize=16*j+"px"}window.DPR=j})(window,document);
+  </script>
 </head>
 
 <body>
     <nav class="navbar navbar-default">
         <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
+            <!-- <div class="navbar-header"> -->
                 <a class="navbar-brand" href="#"><img alt="Brand" width="30" height="30" src="/assets/img/icon1.png"></a>
-            </div>
+            <!-- </div> -->
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="edwin-navbar-collapse">
-                <ul class="nav navbar-nav">
-                    <li name="home"><a href="/">Home <span class="sr-only">(current)</span></a></li>
-                    <li name="github"><a href="https://github.com/zhangyaohui1986" target="_blank">Github</a></li>
-                    <li name="about"><a href="/about">About</a></li>
+                <ul class="nav navbar-nav edwin" >
+                    <li name="home" class="nav-item active"><a href="/">Home <span class="sr-only">(current)</span></a></li>
+                    <li name="github" class="nav-item"><a href="https://github.com/zhangyaohui1986" target="_blank">Github</a></li>
+                    <li name="about" class="nav-item"><a href="/about">About</a></li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->

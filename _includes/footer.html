@@ -27,6 +27,23 @@
     	font-size: 16px;
         margin-right: 3px;
     }
+
+  @media only screen and (min-width: 375px) {
+             .collapse {
+                display: block !important;
+                height: auto !important;
+                padding-bottom: 0;
+                overflow: visible !important;
+            }
+            .navbar-nav {
+                float: left;
+                margin: 0;
+            }
+
+            .nav.navbar-nav.edwin{
+              display: inline-flex;
+            }
+  }
 </style>
 <footer class="footer">
       <div class="container">
@@ -63,6 +80,8 @@
         if(pre_menu_hight == "") pre_menu_hight="home";
        
         $('#edwin-navbar-collapse li[name="'+ pre_menu_hight +'"]').addClass('active');
+
+        if(pre_menu_hight != "home") $('#edwin-navbar-collapse li[name="home"]').removeClass('active');
     });
 </script>
 
